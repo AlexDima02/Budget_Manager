@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -14,11 +15,15 @@ public class Expense {
     String category;
     String name;
     String amount;
+    String year;
+    String month;
 
-    public Expense(String amount, String name, String category) {
+    public Expense(String amount, String name, String category, String month, String year) {
         this.amount = amount;
         this.name = name;
         this.category = category;
+        this.year = year;
+        this.month = month;
     }
 
     public void addExpense(String filename) {

@@ -26,22 +26,30 @@ public class Main {
 
             db.readingExpenses("database.txt");
             System.out.println("Choose what you want to do: ");
+            System.out.println("4 -- Check your budget against monthly expenses");
             System.out.println("3 -- Set a budget");
             System.out.println("2 -- Next");
             System.out.println("1 -- Show all expenses");
             System.out.println("0 -- Exit");
             input = sc.nextLine();
             switch (input) {
+                case "4":
+
+                    System.out.println("Enter month budget: ");
+                    int month = Integer.valueOf(sc.nextLine());
+                    db.checkSpendingAgainstBudget(month);
+
+                    continue;
                 case "3":
 
                     System.out.println("Choose what budget do you want to set: ");
                     String budget = sc.nextLine();
                     System.out.println("Choose for what month do you want to set: ");
-                    String month = sc.nextLine();
+                    String budgetMonth = sc.nextLine();
                     System.out.println("Choose for what year do you want to set: ");
-                    String year = sc.nextLine();
+                    String budgetYear = sc.nextLine();
 
-                    db.writingBudgetList.add(new Budget(budget, month, year));
+                    db.writingBudgetList.add(new Budget(budget, budgetMonth, budgetYear));
                     db.writingBudget("budgets.txt");
 
                 continue;
@@ -50,6 +58,10 @@ public class Main {
 
                     System.out.println("Insert amount: ");
                     String number = sc.nextLine();
+                    System.out.println("Insert month: ");
+                    String expenseMonth = sc.nextLine();
+                    System.out.println("Insert year: ");
+                    String expenseYear = sc.nextLine();
                     System.out.println("Insert name: ");
                     String name = sc.nextLine();
                     System.out.println("Insert category: ");
@@ -61,7 +73,7 @@ public class Main {
                     if (category.equals("2")) category = "Utilities";
                     if (category.equals("3")) category = "Entertainment";
 
-                    db.writingExpenseList.add(new Expense(number, name, category));
+                    db.writingExpenseList.add(new Expense(number, name, category, expenseMonth, expenseYear));
                     db.writingExpense("database.txt");
 
                     continue;
