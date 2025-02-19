@@ -17,15 +17,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        int month;
         String input;
+        String editName;
+        String expenseName;
+        String amount;
         Scanner sc = new Scanner(System.in);
         ArrayList<Expense> expenseList = new ArrayList<Expense>();
         FileInteraction db = new FileInteraction();
+        Expense expense = new Expense();
 
         while (true){
 
             db.readingExpenses("database.txt");
             System.out.println("Choose what you want to do: ");
+            System.out.println("7 -- Remove expense: ");
+            System.out.println("6 -- Edit expense: ");
+            System.out.println("5 -- Show total expense for a specific month: ");
             System.out.println("4 -- Check your budget against monthly expenses");
             System.out.println("3 -- Set a budget");
             System.out.println("2 -- Next");
@@ -33,10 +41,35 @@ public class Main {
             System.out.println("0 -- Exit");
             input = sc.nextLine();
             switch (input) {
+                case "7":
+
+                    System.out.println("Enter the name of the expense: ");
+                    expenseName = sc.nextLine();
+                    expense.removeExpense("database.txt", expenseName);
+
+                    continue;
+                case "6":
+
+                    System.out.println("Enter the name of the expense: ");
+                    expenseName = sc.nextLine();
+                    System.out.println("Edit the expense name: ");
+                    editName = sc.nextLine();
+                    System.out.println("Editor the amount: ");
+                    amount = sc.nextLine();
+                    expense.editExpense("database.txt", amount, editName, expenseName);
+
+                    continue;
+                case "5":
+
+                    System.out.println("Enter your month: ");
+                    month = Integer.valueOf(sc.nextLine());
+                    db.calculateMonthExpense(month);
+
+                    continue;
                 case "4":
 
                     System.out.println("Enter month budget: ");
-                    int month = Integer.valueOf(sc.nextLine());
+                    month = Integer.valueOf(sc.nextLine());
                     db.checkSpendingAgainstBudget(month);
 
                     continue;
@@ -80,8 +113,13 @@ public class Main {
 
                 case "1":
 
+                    if (db.readingExpenseList.size() == 0){
+                        System.out.println("No expenses found");
+                        continue;
+                    }
+
                     for (int i = 0; i <  db.readingExpenseList.size(); i++){
-                        System.out.println(" / " + db.readingExpenseList.get(i).name + " / " + db.readingExpenseList.get(i).category + " / " + db.readingExpenseList.get(i).amount + " / ");
+                        System.out.println(db.readingExpenseList.get(i).amount + " / " + db.readingExpenseList.get(i).name + " / " + db.readingExpenseList.get(i).category + " / " + db.readingExpenseList.get(i).month + " / " + db.readingExpenseList.get(i).year);
                     }
 
                  continue;
